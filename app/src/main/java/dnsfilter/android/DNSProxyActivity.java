@@ -523,7 +523,7 @@ public class DNSProxyActivity extends Activity implements OnClickListener, Logge
 		}		
 		if (destination == keepAwakeCheck) {
 			if (keepAwakeCheck.isChecked()) {
-				wifiLock = ((WifiManager) getSystemService(Context.WIFI_SERVICE)).createWifiLock(WifiManager.WIFI_MODE_FULL, "personalHttpProxy");
+				wifiLock = ((WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE)).createWifiLock(WifiManager.WIFI_MODE_FULL, "personalHttpProxy");
 				wifiLock.acquire();
 				wakeLock = ((PowerManager) getSystemService(Context.POWER_SERVICE)).newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "personalHttpProxy");
 				wakeLock.acquire();	
