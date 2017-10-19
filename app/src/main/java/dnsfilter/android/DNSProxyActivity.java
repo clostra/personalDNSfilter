@@ -232,10 +232,11 @@ public class DNSProxyActivity extends Activity implements OnClickListener, Logge
 				dnsField.setText(config.getProperty("DNS"));	
 				enableAdFilterCheck.setChecked(config.getProperty("filterHostsFile")!=null);
 				enableAutoStartCheck.setChecked(Boolean.parseBoolean(config.getProperty("AUTOSTART","false")));
-				advancedConfigField.setText(  "# clear field to restore defaults!\n\nfilterAutoUpdateURL = "+config.getProperty("filterAutoUpdateURL", "")+"\n"
-											+ "reloadIntervalDays = "+config.getProperty("reloadIntervalDays", "4")+"\n");
-				
-				logLine("Initializing ...");			
+				advancedConfigCheck.setChecked(true);
+				advancedConfigField.setVisibility(View.VISIBLE);
+				keepAwakeCheck.setVisibility(View.VISIBLE);
+				restoreAdvancedConfigField(config);
+				logLine("Initializing ...");
 				appStart = false; // now started
 				
 				handleStart(); //start 
@@ -470,11 +471,16 @@ public class DNSProxyActivity extends Activity implements OnClickListener, Logge
 	}
 
 
+	private void restoreAdvancedConfigField(Properties props) {
+		advancedConfigField.setText(  "# clear field to restore defaults!\n\n#XXX DEMO (uncomment and hit Restart):\n#filter.bbc.com = true\n\nfilterAutoUpdateURL = "+props.getProperty("filterAutoUpdateURL", "")+"\n"
+				+ "reloadIntervalDays = "+props.getProperty("reloadIntervalDays", "4")+"\n");
+	}
+
+
 	private void revertAdvancedConfig() throws IOException {
 		File propsFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/PersonalDNSFilter/dnsfilter.conf");	
 		InputStream in = new FileInputStream(propsFile);
 		restoreAdvancedConfig(in);
-		
 	}
 
 
@@ -482,15 +488,13 @@ public class DNSProxyActivity extends Activity implements OnClickListener, Logge
 		AssetManager assetManager=this.getAssets();
 		InputStream defIn = assetManager.open("dnsfilter.conf");
 		restoreAdvancedConfig(defIn);
-		
 	}
 	
 	private void restoreAdvancedConfig(InputStream in) throws IOException {
 		Properties defProps = new Properties();
 		defProps.load(in);
 		in.close();
-		advancedConfigField.setText(  "# clear field to restore defaults!\n\nfilterAutoUpdateURL = "+defProps.getProperty("filterAutoUpdateURL", "")+"\n"
-				+ "reloadIntervalDays = "+defProps.getProperty("reloadIntervalDays", "4")+"\n");
+		restoreAdvancedConfigField(defProps);
 	}
 
 

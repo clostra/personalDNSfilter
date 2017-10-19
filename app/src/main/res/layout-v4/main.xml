@@ -27,7 +27,7 @@
    
     <LinearLayout android:id="@+id/linearLayout4" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
 
-        <CheckBox android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/advancedConfigCheck" android:checked="false" android:text="@string/EnableConfigCheckBox"
+        <CheckBox android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/advancedConfigCheck" android:checked="true" android:text="@string/EnableConfigCheckBox"
             android:layout_marginLeft="15dp"
             android:textColor="#424242" android:button="@drawable/custom_checkbox"
             android:paddingLeft="32dp"
